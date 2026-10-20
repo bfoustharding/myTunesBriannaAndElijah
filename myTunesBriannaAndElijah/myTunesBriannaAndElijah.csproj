@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="taglib-sharp">
       <HintPath>..\..\starter\Student Starter\taglib-sharp.dll</HintPath>
     </Reference>
