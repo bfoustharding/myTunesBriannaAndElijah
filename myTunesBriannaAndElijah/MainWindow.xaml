@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunesBriannaAndElijah"
         mc:Ignorable="d"
-        Title="myTunes" Height="450" Width="973">
+        Title="myTunes" Height="450" Width="973" Icon="/music.jpg">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
