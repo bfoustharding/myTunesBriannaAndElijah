@@ -26,15 +26,17 @@ namespace myTunesBriannaAndElijah
 
             // fills the ListBox with the playlists from our musicRepo
             playlistListBox.ItemsSource = musicRepo.Playlists;
-
-            // Claude: how do i show just the title property of each item in a ListBox
-            // sets the playlistListBox to display the title property of each item
-            playlistListBox.DisplayMemberPath = "title";
-            // makes the playlistListBox actually display the titles
-            playlistListBox.ItemsSource = musicRepo.SongTable.DefaultView;
-
-            // makes the songsDataGrid display the songs from our musicRepo
-            songsDataGrid.ItemsSource = musicRepo.SongTable.DefaultView;
+            // defaults selection to AllMusic playlist, which triggers
+            // playlistListBox_SelectionChanged 
+            playlistListBox.SelectedIndex = 0;
+        }
+        private void playlistListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (playlistListBox.SelectedItem is string name)
+            {
+                // updates the songsDataGrid to just show the songs for the selected playlist
+                songsDataGrid.ItemsSource = musicRepo.SongsForPlaylist(name).DefaultView;
+            }
         }
     }
 }

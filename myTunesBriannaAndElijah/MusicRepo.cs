@@ -20,7 +20,8 @@ namespace WpfMusicRepoDemo
                             select row["name"].ToString();
 
                 // Use the spread operator to convert IEnumerable to string array
-                return [.. playlists];
+                // puts the AllMusic playlist at the front of the list
+                return ["All Music", .. playlists];
             }
         }
 
@@ -420,6 +421,8 @@ namespace WpfMusicRepoDemo
         /// <returns></returns>
         public DataTable SongsForPlaylist(string playlist)
         {
+
+
             // Create a table with song attributes and position
             DataTable table = new();
             table.Columns.Add("id");
@@ -428,6 +431,26 @@ namespace WpfMusicRepoDemo
             table.Columns.Add("artist");
             table.Columns.Add("album");
             table.Columns.Add("genre");
+
+            // if the playlist is AllMusic
+            if (playlist == "All Music")
+            {
+                // keeps track of what order the songs are in for the AllMusic playlist
+                int pos = 1;
+                // adds every song to the AllMusic playlist
+                foreach (DataRow song in SongTable.Rows)
+                {
+                    DataRow allRow = table.NewRow();
+                    allRow["id"] = song["id"];
+                    allRow["position"] = pos++;
+                    allRow["title"] = song["title"];
+                    allRow["artist"] = song["artist"];
+                    allRow["album"] = song["album"];
+                    allRow["genre"] = song["genre"];
+                    table.Rows.Add(allRow);
+                }
+                return table;
+            }
 
             // Join on the song ID to create a single table
             var songs = from r1 in musicDataSet.Tables["playlist_song"]?.AsEnumerable()

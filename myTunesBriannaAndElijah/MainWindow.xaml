@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunesBriannaAndElijah"
         mc:Ignorable="d"
-        Title="myTunes" Height="450" Width="973" Icon="/music.jpg">
+        Title="myTunes" Height="450" Width="973" Icon="/musicNote.jpg">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
             <ColumnDefinition Width="300*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="All Music" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
-               RenderTransformOrigin="-0.031,-0.243" FontSize="14" FontWeight="Bold" Height="29" Width="70"/>
-        <ListBox x:Name="playlistListBox" Margin="10,41,10,10" Grid.ColumnSpan="1"/>
+       
+        <!--Claude: how do I add an event handler for when the selected item in my listbox is changed-->
+        <ListBox x:Name="playlistListBox" Margin="10,10,10,10" Grid.ColumnSpan="1" SelectionChanged="playlistListBox_SelectionChanged"/>
+        
         <DataGrid x:Name="songsDataGrid" Grid.Column="1" Margin="10,10,10,10"
           AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
