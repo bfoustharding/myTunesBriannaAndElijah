@@ -7,15 +7,27 @@
         mc:Ignorable="d"
         Title="myTunes" Height="450" Width="973" Icon="/musicNote.jpg">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
             <ColumnDefinition Width="300*"/>
         </Grid.ColumnDefinitions>
-       
+
+        <!--TODO: Use icons rather than text buttons-->
+        <ToolBar Grid.Row="0" Grid.ColumnSpan="2">
+            <Button x:Name="addSongButton" Content="Add song" ToolTip="Add song" Click="addSongButton_Click" />
+            <Button x:Name="newPlaylistButton" Content="New playlist" ToolTip="New playlist" Click="newPlaylistButton_Click"/>
+            <Separator />
+            <Button x:Name="aboutSongButton" Content="About" ToolTip="About myTunes" Click="aboutButton_Click" />
+        </ToolBar>
+
         <!--Claude: how do I add an event handler for when the selected item in my listbox is changed-->
-        <ListBox x:Name="playlistListBox" Margin="10,10,10,10" Grid.ColumnSpan="1" SelectionChanged="playlistListBox_SelectionChanged"/>
+        <ListBox x:Name="playlistListBox" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="1" SelectionChanged="playlistListBox_SelectionChanged"/>
         
-        <DataGrid x:Name="songsDataGrid" Grid.Column="1" Margin="10,10,10,10"
+        <DataGrid x:Name="songsDataGrid" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"
           AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <!--Claude: how can I custom name the columns of my DataGrid-->
