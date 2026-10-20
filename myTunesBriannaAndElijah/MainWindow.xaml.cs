@@ -81,7 +81,20 @@ namespace myTunesBriannaAndElijah
 
         private void newPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            PlaylistNameWindow dialog = new();
+
+            if (dialog.ShowDialog() != true) { return; }
+
+            string name = dialog.PlaylistName;
+
+            if (name == "All Music" || !musicRepo.AddPlaylist(name))
+            {
+                MessageBox.Show($"A playlist named \"{name}\" already exists.", "myTunes", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            playlistListBox.ItemsSource = musicRepo.Playlists;
+            playlistListBox.SelectedItem = name;
         }
 
         private void aboutButton_Click(object sender, RoutedEventArgs e)
