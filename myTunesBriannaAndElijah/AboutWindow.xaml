@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunesBriannaAndElijah"
         mc:Ignorable="d"
-        Title="AboutWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="About myTunes" Height="200" Width="400">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+
+        <Image Source="/musicNote.jpg" Width="80" Height="80" VerticalAlignment="Top" />
+
+        <!--Styled with Claude-->
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="myTunes" FontSize="26" FontWeight="Bold" />
+            <TextBlock Text="Organize and play your music" Foreground="Gray" Margin="0,2,0,0" />
+            <TextBlock Text="Programmed by:" Margin="0,20,0,0" />
+            <TextBlock Text="Brianna Foust" FontWeight="SemiBold" />
+            <TextBlock Text="Elijah Duke" FontWeight="SemiBold" />
+        </StackPanel>
+
+        <Button Grid.Row="1" Grid.Column="1" Content="OK" Width="80" IsDefault="True" IsCancel="True" HorizontalAlignment="Right" />
     </Grid>
 </Window>
