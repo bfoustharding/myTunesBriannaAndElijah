@@ -1,0 +1,112 @@
+<?xml version="1.0" standalone="yes"?>
+<music>
+  <song>
+    <id>10</id>
+    <title>End of Line</title>
+    <artist>Daft Punk</artist>
+    <album>TRON: Legacy (Original Motion Picture Soundtrack)</album>
+    <filename>C:\Users\fmccown\Music\iTunes\iTunes Media\Music\Daft Punk\TRON_ Legacy (Original Motion Picture So\12 End of Line.m4a</filename>
+    <length>2:36</length>
+    <genre>Soundtrack</genre>
+    <url>http://www.last.fm/music/Daft+Punk/TRON:+Legacy</url>
+    <albumImage>http://img2-ak.lst.fm/i/u/34s/83a0d560356141a5c1e594b156eae495.png</albumImage>
+  </song>
+  <song>
+    <id>11</id>
+    <title>All the Right Moves</title>
+    <artist>OneRepublic &amp;</artist>
+    <album>Waking Up (Deluxe Version)</album>
+    <filename>C:\Users\fmccown\Music\iTunes\iTunes Media\Music\OneRepublic\Waking Up (Deluxe Version)\02 All the Right Moves.m4a</filename>
+    <length>3:58</length>
+    <genre>Pop</genre>
+    <url>http://www.last.fm/music/OneRepublic/_/All+the+Right+Moves</url>
+  </song>
+  <song>
+    <id>14</id>
+    <title>Wrong</title>
+    <artist>Depeche Mode</artist>
+    <album>Wrong - Single</album>
+    <filename>C:\Users\fmccown\Music\iTunes\iTunes Media\Music\Depeche Mode\Wrong - Single\01 Wrong.m4a</filename>
+    <length>3:13</length>
+    <genre>Alternative</genre>
+    <url>http://www.last.fm/music/Depeche+Mode/Sounds+Of+The+Universe</url>
+    <albumImage>http://img2-ak.lst.fm/i/u/34s/ebfd381f672a4d25acfe3914d030b2b9.png</albumImage>
+  </song>
+  <song>
+    <id>15</id>
+    <title>Radioactive</title>
+    <artist>Imagine Dragons</artist>
+    <album>Night Visions</album>
+    <filename>C:\Users\fmccown\Music\iTunes\iTunes Media\Music\Imagine Dragons\Night Visions\01 Radioactive.m4a</filename>
+    <length>3:6</length>
+    <genre>Alternative</genre>
+    <url>http://www.last.fm/music/Imagine+Dragons/_/Radioactive</url>
+  </song>
+  <song>
+    <id>16</id>
+    <title>No New Tale to Tell</title>
+    <artist>Various Artists</artist>
+    <album>New Tales to Tell - A Tribute to Love and Rockets (Bonus Track Version)</album>
+    <filename>C:\Users\fmccown\Music\iTunes\iTunes Media\Music\Compilations\New Tales to Tell - A Tribute to Love an\1-04 No New Tale to Tell.m4a</filename>
+    <length>3:17</length>
+    <genre>Alternative</genre>
+  </song>
+  <song>
+    <id>17</id>
+    <title>In the Hall of the Mountain King</title>
+    <artist>Trent Reznor &amp; Atticus Ross</artist>
+    <album>The Social Network (Soundtrack from the Motion Picture)</album>
+    <filename>C:\Users\fmccown\Music\iTunes\iTunes Media\Music\Trent Reznor &amp; Atticus Ross\The Social Network (Soundtrack from the\12 In the Hall of the Mountain King.m4a</filename>
+    <length>2:21</length>
+    <genre>Soundtrack</genre>
+    <url>http://www.last.fm/music/Trent+Reznor+and+Atticus+Ross/The+Social+Network</url>
+    <albumImage>http://img2-ak.lst.fm/i/u/34s/44d470d009d24d658d0d2b2bcaa2bcd2.png</albumImage>
+  </song>
+  <song>
+    <id>18</id>
+    <title>Burning Up</title>
+    <artist>Ladytron</artist>
+    <album>Velocifero</album>
+    <filename>C:\temp\06 Burning Up.m4a</filename>
+    <length>4:8</length>
+    <genre>Electronic</genre>
+    <url>https://www.last.fm/music/Ladytron/Velocifero</url>
+    <albumImage>https://lastfm-img2.akamaized.net/i/u/34s/80be199236f14a8b8a3b15ee379ab5d1.png</albumImage>
+  </song>
+  <playlist>
+    <name>Cool stuff!</name>
+  </playlist>
+  <playlist>
+    <name>Quiet music</name>
+  </playlist>
+  <playlist_song>
+    <song_id>11</song_id>
+    <playlist_name>Cool stuff!</playlist_name>
+    <position>1</position>
+  </playlist_song>
+  <playlist_song>
+    <song_id>11</song_id>
+    <playlist_name>Cool stuff!</playlist_name>
+    <position>2</position>
+  </playlist_song>
+  <playlist_song>
+    <song_id>11</song_id>
+    <playlist_name>Cool stuff!</playlist_name>
+    <position>3</position>
+  </playlist_song>
+  <playlist_song>
+    <song_id>10</song_id>
+    <playlist_name>Cool stuff!</playlist_name>
+    <position>4</position>
+  </playlist_song>
+  <playlist_song>
+    <song_id>11</song_id>
+    <playlist_name>Cool stuff!</playlist_name>
+    <position>5</position>
+  </playlist_song>
+  <playlist_song>
+    <song_id>11</song_id>
+    <playlist_name>Cool stuff!</playlist_name>
+    <position>6</position>
+  </playlist_song>
+</music>
