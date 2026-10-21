@@ -22,6 +22,8 @@ namespace myTunesBriannaAndElijah
         // creates a MusicRepo which we'll use throughout the program to handle the playlists and songs
         private readonly MusicRepo musicRepo = new MusicRepo();
 
+        private readonly MediaPlayer player = new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -101,6 +103,32 @@ namespace myTunesBriannaAndElijah
         {
             AboutWindow about = new();
             about.ShowDialog();
+        }
+
+        private void playCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = songsDataGrid.SelectedItem is DataRowView;
+        }
+
+        private void playCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PlaySelectedSong();
+        }
+
+        private void PlaySelectedSong()
+        {
+            if (songsDataGrid.SelectedItem is not DataRowView row) { return; }
+
+            Song? song = musicRepo.GetSong(Convert.ToInt32(row["id"]));
+
+            if (song == null || !System.IO.File.Exists(song.Filename))
+            {
+                MessageBox.Show("The song file could not be found:\n" + song?.Filename, "myTunes", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            player.Open(new Uri(song.Filename));
+            player.Play();
         }
     }
 }

@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:myTunesBriannaAndElijah"
         mc:Ignorable="d"
         Title="myTunes" Height="450" Width="973" Icon="/musicNote.jpg">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="MediaCommands.Play" Executed="playCommand_Executed" CanExecute="playCommand_CanExecute" />
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -39,9 +43,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!--TODO: Add Command Event Handlers-->
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Margin="10,0,10,10">
-            <Button Content="Play" Width="80" Margin="0,0,8,0" ToolTip="Play the selected song" />
+            <Button Content="Play" Command="MediaCommands.Play" Width="80" Margin="0,0,8,0" ToolTip="Play the selected song" />
             <Button Content="Stop" Width="80" ToolTip="Stop the song" />
         </StackPanel>
 
