@@ -102,6 +102,5 @@ namespace myTunesBriannaAndElijah
             AboutWindow about = new();
             about.ShowDialog();
         }
-
     }
 }
