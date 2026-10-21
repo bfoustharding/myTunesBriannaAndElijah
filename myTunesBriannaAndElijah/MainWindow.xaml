@@ -9,6 +9,7 @@
 
     <Window.CommandBindings>
         <CommandBinding Command="MediaCommands.Play" Executed="playCommand_Executed" CanExecute="playCommand_CanExecute" />
+        <CommandBinding Command="MediaCommands.Stop" Executed="stopCommand_Executed" CanExecute="stopCommand_CanExecute" />
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -45,7 +46,7 @@
 
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Margin="10,0,10,10">
             <Button Content="Play" Command="MediaCommands.Play" Width="80" Margin="0,0,8,0" ToolTip="Play the selected song" />
-            <Button Content="Stop" Width="80" ToolTip="Stop the song" />
+            <Button Content="Stop" Command="MediaCommands.Stop" Width="80" ToolTip="Stop the song" />
         </StackPanel>
 
     </Grid>

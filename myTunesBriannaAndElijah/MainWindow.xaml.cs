@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace myTunesBriannaAndElijah
         private readonly MusicRepo musicRepo = new MusicRepo();
 
         private readonly MediaPlayer player = new();
+        private bool isPlaying = false;
 
         public MainWindow()
         {
@@ -115,6 +117,16 @@ namespace myTunesBriannaAndElijah
             PlaySelectedSong();
         }
 
+        private void stopCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = isPlaying;
+        }
+
+        private void stopCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            StopSong();
+        }
+
         private void PlaySelectedSong()
         {
             if (songsDataGrid.SelectedItem is not DataRowView row) { return; }
@@ -129,6 +141,14 @@ namespace myTunesBriannaAndElijah
 
             player.Open(new Uri(song.Filename));
             player.Play();
+            isPlaying = true;
         }
+
+        private void StopSong() { 
+            player.Stop();
+            isPlaying = false;
+        }
+
+        //TODO: When a song ends, move to the next song in the playlist
     }
 }
