@@ -23,6 +23,7 @@ namespace myTunesBriannaAndElijah
         // creates a MusicRepo which we'll use throughout the program to handle the playlists and songs
         private readonly MusicRepo musicRepo = new MusicRepo();
 
+        // plays the audio files
         private readonly MediaPlayer player = new();
         private bool isPlaying = false;
 
@@ -30,9 +31,9 @@ namespace myTunesBriannaAndElijah
         {
             InitializeComponent();
 
+            // Moves onto the next song on finish, and show error when fail
             player.MediaEnded += player_MediaEnded;
             player.MediaFailed += player_MediaFailed;
-
 
             // fills the ListBox with the playlists from our musicRepo
             playlistListBox.ItemsSource = musicRepo.Playlists;
@@ -40,6 +41,9 @@ namespace myTunesBriannaAndElijah
             // playlistListBox_SelectionChanged 
             playlistListBox.SelectedIndex = 0;
         }
+
+        //TODO: save the song and playlist data when the app closes
+
         private void playlistListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (playlistListBox.SelectedItem is string name)
@@ -49,6 +53,7 @@ namespace myTunesBriannaAndElijah
             }
         }
 
+        // Add Song toolbar button, opens a dialog for user to select audio file, add it to musicRepo
         private void addSongButton_Click(object sender, RoutedEventArgs e)
         {
             // Claude helped write the filter
@@ -87,6 +92,7 @@ namespace myTunesBriannaAndElijah
             }
         }
 
+        // New Playlist toolbar button, prompts the user for a name and makes the playlist
         private void newPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             PlaylistNameWindow dialog = new();
@@ -105,12 +111,14 @@ namespace myTunesBriannaAndElijah
             playlistListBox.SelectedItem = name;
         }
 
+        // About toolbar button, shows the About Dialog box
         private void aboutButton_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow about = new();
             about.ShowDialog();
         }
 
+        // Play is only able to execute when a song is selected
         private void playCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = songsDataGrid.SelectedItem is DataRowView;
@@ -121,6 +129,7 @@ namespace myTunesBriannaAndElijah
             PlaySelectedSong();
         }
 
+        // Stop is only able to execute when a song is playing
         private void stopCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = isPlaying;
@@ -131,6 +140,8 @@ namespace myTunesBriannaAndElijah
             StopSong();
         }
 
+        // Plays the song currently selected
+        // Claude helped with getting the song
         private void PlaySelectedSong()
         {
             if (songsDataGrid.SelectedItem is not DataRowView row) { return; }
@@ -146,13 +157,17 @@ namespace myTunesBriannaAndElijah
             player.Open(new Uri(song.Filename));
             player.Play();
             isPlaying = true;
+            CommandManager.InvalidateRequerySuggested();
         }
 
-        private void StopSong() { 
+        private void StopSong() 
+        { 
             player.Stop();
             isPlaying = false;
+            CommandManager.InvalidateRequerySuggested();
         }
 
+        // Select a row if a user selects it
         private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is DataGridRow row)
@@ -161,19 +176,20 @@ namespace myTunesBriannaAndElijah
             }
         }
 
+        // Play a song when a user double clicks on it
         private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             PlaySelectedSong();
         }
 
-        //When a song ends, move to the next song in the playlist
+        // When a song ends, move to the next song in the playlist
         private void player_MediaEnded(object? sender, EventArgs e)
         {
-            int next = songsDataGrid.SelectedIndex = 1;
+            int next = songsDataGrid.SelectedIndex + 1;
             if (next < songsDataGrid.Items.Count)
             {
                 songsDataGrid.SelectedIndex = next;
-                songsDataGrid.ScrollIntoView(songsDataGrid.SelectedIndex);
+                songsDataGrid.ScrollIntoView(songsDataGrid.SelectedItem);
                 PlaySelectedSong();
             }
             else

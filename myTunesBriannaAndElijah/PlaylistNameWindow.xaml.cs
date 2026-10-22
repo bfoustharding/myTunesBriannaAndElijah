@@ -17,6 +17,7 @@ namespace myTunesBriannaAndElijah
     /// </summary>
     public partial class PlaylistNameWindow : Window
     {
+        // property of the name the user typed
         public string PlaylistName { get; private set; } = "";
         
         
