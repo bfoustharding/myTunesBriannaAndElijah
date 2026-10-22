@@ -30,6 +30,10 @@ namespace myTunesBriannaAndElijah
         {
             InitializeComponent();
 
+            player.MediaEnded += player_MediaEnded;
+            player.MediaFailed += player_MediaFailed;
+
+
             // fills the ListBox with the playlists from our musicRepo
             playlistListBox.ItemsSource = musicRepo.Playlists;
             // defaults selection to AllMusic playlist, which triggers
@@ -162,6 +166,26 @@ namespace myTunesBriannaAndElijah
             PlaySelectedSong();
         }
 
-        //TODO: When a song ends, move to the next song in the playlist
+        //When a song ends, move to the next song in the playlist
+        private void player_MediaEnded(object? sender, EventArgs e)
+        {
+            int next = songsDataGrid.SelectedIndex = 1;
+            if (next < songsDataGrid.Items.Count)
+            {
+                songsDataGrid.SelectedIndex = next;
+                songsDataGrid.ScrollIntoView(songsDataGrid.SelectedIndex);
+                PlaySelectedSong();
+            }
+            else
+            {
+                StopSong();
+            }
+        }
+
+        private void player_MediaFailed(object? sender, ExceptionEventArgs e)
+        {
+            StopSong();
+            MessageBox.Show("Could not play the song: " + e.ErrorException.Message, "myTunes", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }
