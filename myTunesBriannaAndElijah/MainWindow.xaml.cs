@@ -149,6 +149,19 @@ namespace myTunesBriannaAndElijah
             isPlaying = false;
         }
 
+        private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DataGridRow row)
+            {
+                row.IsSelected = true;
+            }
+        }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            PlaySelectedSong();
+        }
+
         //TODO: When a song ends, move to the next song in the playlist
     }
 }
