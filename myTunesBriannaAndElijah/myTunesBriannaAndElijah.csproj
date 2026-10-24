@@ -9,7 +9,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\diskSymbol.jpg" />
+    <None Remove="Images\musicNote.jpg" />
+    <None Remove="Images\plusSymbol.jpg" />
+    <None Remove="Images\questionSymbol.jpg" />
     <None Remove="music.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\diskSymbol.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\musicNote.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\plusSymbol.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\questionSymbol.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

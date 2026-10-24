@@ -22,12 +22,18 @@
             <ColumnDefinition Width="300*"/>
         </Grid.ColumnDefinitions>
 
-        <!--TODO: Use icons rather than text buttons-->
+        <!--Claude: how do I use images for wpf toolbar buttons instead of text content-->
         <ToolBar Grid.Row="0" Grid.ColumnSpan="2">
-            <Button x:Name="addSongButton" Content="Add song" ToolTip="Add song" Click="addSongButton_Click" />
-            <Button x:Name="newPlaylistButton" Content="New playlist" ToolTip="New playlist" Click="newPlaylistButton_Click"/>
+            <Button x:Name="addSongButton" ToolTip="Add song" Click="addSongButton_Click" >
+                <Image Source="/Images/plusSymbol.jpg" Width="24" Height="24"/>
+            </Button>
+            <Button x:Name="newPlaylistButton" ToolTip="New playlist" Click="newPlaylistButton_Click">
+                <Image Source="/Images/diskSymbol.jpg" Width="24" Height="24"/>
+            </Button>
             <Separator />
-            <Button x:Name="aboutSongButton" Content="About" ToolTip="About myTunes" Click="aboutButton_Click" />
+            <Button x:Name="aboutSongButton" ToolTip="About myTunes" Click="aboutButton_Click" >
+                <Image Source="/Images/questionSymbol.jpg" Width="24" Height="24"/>
+            </Button>
         </ToolBar>
 
         <!--Claude: how do I add an event handler for when the selected item in my listbox is changed-->
