@@ -17,12 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="taglib-sharp">
-      <HintPath>..\..\starter\Student Starter\taglib-sharp.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="musicNote.jpg" />
   </ItemGroup>
 

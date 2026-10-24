@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunesBriannaAndElijah"
         mc:Ignorable="d"
-        Title="PlaylistNameWindow" Height="125" Width="300"
+        Title="PlaylistNameWindow" Height="137" Width="300"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False"
         FocusManager.FocusedElement="{Binding ElementName=nameTextBox}">
     <!--Styled with claude-->
