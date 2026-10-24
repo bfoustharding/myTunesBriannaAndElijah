@@ -37,10 +37,18 @@
         </ToolBar>
 
         <!--Claude: how do I add an event handler for when the selected item in my listbox is changed-->
-        <ListBox x:Name="playlistListBox" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="1" SelectionChanged="playlistListBox_SelectionChanged"/>
+        <ListBox x:Name="playlistListBox" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="1" SelectionChanged="playlistListBox_SelectionChanged">
+            <!--Links the drag & drop event handler to every playlist item that's added to the ListBox-->
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="AllowDrop" Value="True"/>
+                    <EventSetter Event="Drop" Handler="playlistItem_Drop"/>
+                </Style>
+            </ListBox.ItemContainerStyle> 
+        </ListBox>
 
-        <DataGrid x:Name="songsDataGrid" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"
-          AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="songsDataGrid" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True" 
+                  PreviewMouseMove="songsDataGrid_PreviewMouseMove">
             <!--Claude helped write the context menu-->
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">

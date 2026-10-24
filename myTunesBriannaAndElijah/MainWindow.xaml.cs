@@ -57,7 +57,7 @@ namespace myTunesBriannaAndElijah
         private void addSongButton_Click(object sender, RoutedEventArgs e)
         {
             // Claude helped write the filter
-            OpenFileDialog dialog = new() 
+            OpenFileDialog dialog = new()
             {
                 Title = "Add Song",
                 Filter = "Audio files|*.mp3;*.m4a;*.wma;*.wav|All files|*.*",
@@ -83,7 +83,7 @@ namespace myTunesBriannaAndElijah
             //Claude helped write selecting the new song
             foreach (DataRowView item in songsDataGrid.Items)
             {
-                if (item["id"].ToString() == song.Id.ToString()) 
+                if (item["id"].ToString() == song.Id.ToString())
                 {
                     songsDataGrid.SelectedItem = item;
                     songsDataGrid.ScrollIntoView(item);
@@ -160,8 +160,8 @@ namespace myTunesBriannaAndElijah
             CommandManager.InvalidateRequerySuggested();
         }
 
-        private void StopSong() 
-        { 
+        private void StopSong()
+        {
             player.Stop();
             isPlaying = false;
             CommandManager.InvalidateRequerySuggested();
@@ -203,5 +203,34 @@ namespace myTunesBriannaAndElijah
             StopSong();
             MessageBox.Show("Could not play the song: " + e.ErrorException.Message, "myTunes", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        private void songsDataGrid_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            // If we aren't pressing down the mouse, or if we don't have a song selected, then we're not actually doing a drag & drop
+            if (e.LeftButton != MouseButtonState.Pressed || songsDataGrid.SelectedItem == null) 
+                return;
+
+            // Gets the data of the currently selected song (the one we're dragging)
+            DataObject data = new DataObject("song", songsDataGrid.SelectedItem);
+
+            // Start a drag & drop operation with our current songsDataGrid, our selected song's data, and with the intent to copy (not move)
+            DragDrop.DoDragDrop(songsDataGrid, data, DragDropEffects.Copy);
+        }
+
+        private void playlistItem_Drop(object sender, DragEventArgs e)
+        {
+            // Get the whole row of data associated with our song
+            DataRowView songRow = (DataRowView)e.Data.GetData("song");
+
+            // Get the song id out of our song row (we need to use Convert because songRow["id"] is a string originally
+            int songId = Convert.ToInt32(songRow["id"]);
+
+            // Get the name of the playlist we dropped on
+            string playlist = (string)((ListBoxItem)sender).Content;
+
+            // Add the song to the playlist
+            musicRepo.AddSongToPlaylist(songId, playlist);
+        }
+
     }
 }
