@@ -20,6 +20,11 @@ namespace myTunesBriannaAndElijah
     /// </summary>
     public partial class MainWindow : Window
     {
+       //Claude:how to make a command binding for a remove command
+
+        public static readonly RoutedUICommand RemoveCommand = 
+            new RoutedUICommand("Remove", "Remove", typeof(MainWindow));
+
         // creates a MusicRepo which we'll use throughout the program to handle the playlists and songs
         private readonly MusicRepo musicRepo = new MusicRepo();
 
@@ -222,7 +227,7 @@ namespace myTunesBriannaAndElijah
             // Get the whole row of data associated with our song
             DataRowView songRow = (DataRowView)e.Data.GetData("song");
 
-            // Get the song id out of our song row (we need to use Convert because songRow["id"] is a string originally
+            // Get the song id out of the  song row (we need to use Convert because songRow["id"] is a string originally
             int songId = Convert.ToInt32(songRow["id"]);
 
             // Get the name of the playlist we dropped on
@@ -232,5 +237,44 @@ namespace myTunesBriannaAndElijah
             musicRepo.AddSongToPlaylist(songId, playlist);
         }
 
+
+        private void removeCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            // We can only try to remove a song if we have a song selected to remove
+            e.CanExecute = songsDataGrid.SelectedItem is DataRowView;
+
+        }
+
+        private void removeCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // Pull the data out of the selected song 
+            DataRowView songRow = (DataRowView)songsDataGrid.SelectedItem;
+
+            // Get the song id of the song row
+            int songId = Convert.ToInt32(songRow["id"]);
+
+            // Get the name of the playlist we're in
+            string playlist = (string)playlistListBox.SelectedItem;
+
+            if (playlist == "All Music")
+            {
+                // If we're on the All Music playlist, show dialog to check to make sure the user knows what they're doing
+                MessageBoxResult answer = MessageBox.Show("Remove from all playlists?", "Remove", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (answer == MessageBoxResult.No)
+                    return;
+
+                // Delete the song permanently
+                musicRepo.DeleteSong(songId);
+            }
+            else
+            {
+                // Take the position of the song (whether it's 1st, 2nd, etc)
+                int position = Convert.ToInt32(songRow["position"]);
+
+                // Remove the song from the playlist
+                musicRepo.RemoveSongFromPlaylist(position, songId, playlist);
+            }
+        }
     }
 }

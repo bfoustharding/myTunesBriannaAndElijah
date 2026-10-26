@@ -10,6 +10,10 @@
     <Window.CommandBindings>
         <CommandBinding Command="MediaCommands.Play" Executed="playCommand_Executed" CanExecute="playCommand_CanExecute" />
         <CommandBinding Command="MediaCommands.Stop" Executed="stopCommand_Executed" CanExecute="stopCommand_CanExecute" />
+        <!--Clude:how to make a command binding for a remove command-->
+        <CommandBinding Command="{x:Static local:MainWindow.RemoveCommand}"
+                Executed="removeCommand_Executed"
+                CanExecute="removeCommand_CanExecute"/>
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -58,6 +62,8 @@
                         <Setter.Value>
                             <ContextMenu>
                                 <MenuItem Header="Play" Command="MediaCommands.Play" />
+                                <!--Clude:how to make a command binding for a remove command-->
+                                <MenuItem Header="Remove" Command="{x:Static local:MainWindow.RemoveCommand}" />
                             </ContextMenu>
                         </Setter.Value>
                     </Setter>
