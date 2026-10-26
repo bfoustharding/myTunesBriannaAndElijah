@@ -50,6 +50,9 @@
             <Button x:Name="aboutSongButton" ToolTip="About myTunes" Click="aboutButton_Click" >
                 <Image Source="/Images/questionSymbol.jpg" Width="24" Height="24"/>
             </Button>
+            <Separator/>
+            <Label Content="Search:"/>
+            <TextBox x:Name="searchTextBox" Width="250" ToolTip="Search Songs" TextChanged="searchTextBox_TextChanged"/>
         </ToolBar>
 
         <!--Claude: how do I add an event handler for when the selected item in my listbox is changed-->

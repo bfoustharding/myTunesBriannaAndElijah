@@ -333,5 +333,25 @@ namespace myTunesBriannaAndElijah
             playlistListBox.ItemsSource = musicRepo.Playlists;
             playlistListBox.SelectedItem = "All Music";
         }
+
+        // Open a DataView on our DataGrid so we can filter the songs. If nothing's entered in our search box,
+        // show all songs. Otherwise, filter songs by those that have a title, artist, etc. like our search.
+        // Claude: how do I use a DataView.RowFilter with a LIKE statement to filter datarows with a specific string
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataView? dataView = songsDataGrid.ItemsSource as DataView;
+
+            string searchText = searchTextBox.Text;
+
+            if (searchText == "")
+            {
+                dataView.RowFilter = "";
+            }
+            else
+            {
+                dataView.RowFilter = $"title LIKE '%{searchText}%' OR artist LIKE '%{searchText}%' " +
+                                 $"OR album LIKE '%{searchText}%' OR genre LIKE '%{searchText}%'";
+            }
+        }
     }
 }
