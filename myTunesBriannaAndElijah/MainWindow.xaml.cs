@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System.Data;
+﻿using System.Data;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -11,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using Microsoft.Win32;
 using WpfMusicRepoDemo;
 
 namespace myTunesBriannaAndElijah
@@ -267,6 +268,70 @@ namespace myTunesBriannaAndElijah
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             musicRepo.Save();
+        }
+
+        // To avoid right-clicks on the extra space in the playlist list box opening the Rename/Delete context menu,
+        // this boolean keeps track of whether an actual playlist item was clicked on
+        private bool clickedOnPlaylist = false;
+        private void playlistItem_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ((ListBoxItem)sender).IsSelected = true;
+            clickedOnPlaylist = true;
+        }
+        
+        // If the right-click was not on a playlist, prevent the context menu from being opened
+        private void playlistListBox_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if (!clickedOnPlaylist)
+                e.Handled = true;
+            else
+                clickedOnPlaylist = false;
+        }
+
+        // Check to make sure we're not trying to rename All Music. Then, get the new playlist name and,
+        // if it's valid, rename the playlist
+        private void renamePlaylistMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            string oldPlaylistName = (string)playlistListBox.SelectedItem;
+
+            if (oldPlaylistName == "All Music") 
+            {
+                MessageBox.Show("Can't rename All Music", "myTunes", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            PlaylistNameWindow dialog = new();
+            if (dialog.ShowDialog() != true)
+                return;
+
+            string newPlaylistName = dialog.PlaylistName;
+
+            // Claude: how to make sure a string has no whitespace
+            if (string.IsNullOrWhiteSpace(newPlaylistName))
+            {
+                MessageBox.Show("Name can't be blank", "myTunes", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            musicRepo.RenamePlaylist(oldPlaylistName, newPlaylistName);
+
+            playlistListBox.ItemsSource = musicRepo.Playlists;
+        }
+
+        // Check to make sure the selected playlist isn't all music, then delete playlist, and go to All Music
+        private void deletePlaylistMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            string name = (string)playlistListBox.SelectedItem;
+
+            if (name == "All Music")
+            {
+                MessageBox.Show("All Music can't be deleted.", "myTunes", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            musicRepo.DeletePlaylist(name);
+            playlistListBox.ItemsSource = musicRepo.Playlists;
+            playlistListBox.SelectedItem = "All Music";
         }
     }
 }
