@@ -8,6 +8,17 @@
         Title="myTunes" Height="450" Width="973" Icon="/musicNote.jpg"
         Closing="Window_Closing">
 
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Foreground" Value="LightSeaGreen"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Window.CommandBindings>
         <CommandBinding Command="MediaCommands.Play" Executed="playCommand_Executed" CanExecute="playCommand_CanExecute" />
         <CommandBinding Command="MediaCommands.Stop" Executed="stopCommand_Executed" CanExecute="stopCommand_CanExecute" />
