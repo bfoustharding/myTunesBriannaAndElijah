@@ -21,8 +21,7 @@ namespace myTunesBriannaAndElijah
     /// </summary>
     public partial class MainWindow : Window
     {
-       //Claude:how to make a command binding for a remove command
-
+       //Claude:how to make a custom command binding for a remove command
         public static readonly RoutedUICommand RemoveCommand = 
             new RoutedUICommand("Remove", "Remove", typeof(MainWindow));
 
@@ -43,12 +42,9 @@ namespace myTunesBriannaAndElijah
 
             // fills the ListBox with the playlists from our musicRepo
             playlistListBox.ItemsSource = musicRepo.Playlists;
-            // defaults selection to AllMusic playlist, which triggers
-            // playlistListBox_SelectionChanged 
+            // defaults selection to AllMusic playlist, which triggers playlistListBox_SelectionChanged 
             playlistListBox.SelectedIndex = 0;
         }
-
-        //TODO: save the song and playlist data when the app closes
 
         private void playlistListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -221,7 +217,7 @@ namespace myTunesBriannaAndElijah
             DragDrop.DoDragDrop(songsDataGrid, songData, DragDropEffects.Copy);
         }
 
-        // Add the selected song to the selected playlist by song ID and playlist name
+        // Add the dragged song to the playlist it was dropped on by song ID and playlist name
         private void playlistItem_Drop(object sender, DragEventArgs e)
         {
             int songId = Convert.ToInt32(((DataRowView)e.Data.GetData("song"))["id"]);
@@ -231,7 +227,7 @@ namespace myTunesBriannaAndElijah
             musicRepo.AddSongToPlaylist(songId, playlist);
         }
 
-        // Check to make sure we actually have a snog selected
+        // Check to make sure we actually have a song selected
         private void removeCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = songsDataGrid.SelectedItem is DataRowView;
@@ -264,7 +260,7 @@ namespace myTunesBriannaAndElijah
             }
         }
 
-        // When the window closes, save any changes to playlists
+        // When the window closes, save any changes to playlists (to music.xml)
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             musicRepo.Save();
@@ -306,16 +302,13 @@ namespace myTunesBriannaAndElijah
 
             string newPlaylistName = dialog.PlaylistName;
 
-            // Claude: how to make sure a string has no whitespace
-            if (string.IsNullOrWhiteSpace(newPlaylistName))
-            {
-                MessageBox.Show("Name can't be blank", "myTunes", MessageBoxButton.OK, MessageBoxImage.Warning);
+            if (!(musicRepo.RenamePlaylist(oldPlaylistName, newPlaylistName))) {
+                MessageBox.Show("Playlist name can't be blank or repeated", "myTunes", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            musicRepo.RenamePlaylist(oldPlaylistName, newPlaylistName);
-
             playlistListBox.ItemsSource = musicRepo.Playlists;
+            playlistListBox.SelectedItem = newPlaylistName;
         }
 
         // Check to make sure the selected playlist isn't all music, then delete playlist, and go to All Music
@@ -334,8 +327,8 @@ namespace myTunesBriannaAndElijah
             playlistListBox.SelectedItem = "All Music";
         }
 
-        // Open a DataView on our DataGrid so we can filter the songs. If nothing's entered in our search box,
-        // show all songs. Otherwise, filter songs by those that have a title, artist, etc. like our search.
+        // Get the DataView on the DataGrid in order to filter the songs. If nothing's entered in the search box,
+        // show all songs. Otherwise, filter songs by those that have a title, artist, etc. like the search.
         // Claude: how do I use a DataView.RowFilter with a LIKE statement to filter datarows with a specific string
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
