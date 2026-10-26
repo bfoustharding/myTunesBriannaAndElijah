@@ -222,9 +222,12 @@ namespace myTunesBriannaAndElijah
         {
             int songId = Convert.ToInt32(((DataRowView)e.Data.GetData("song"))["id"]);
 
-            string playlist = (string)((ListBoxItem)sender).Content;
+            string playlistName = (string)((ListBoxItem)sender).Content;
 
-            musicRepo.AddSongToPlaylist(songId, playlist);
+            if (playlistName == "All Music") 
+                return;
+
+            musicRepo.AddSongToPlaylist(songId, playlistName);
         }
 
         // Check to make sure we actually have a song selected
