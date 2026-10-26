@@ -21,7 +21,6 @@ namespace myTunesBriannaAndElijah
     /// </summary>
     public partial class MainWindow : Window
     {
-       //Claude:how to make a custom command binding for a remove command
         public static readonly RoutedUICommand RemoveCommand = 
             new RoutedUICommand("Remove", "Remove", typeof(MainWindow));
 

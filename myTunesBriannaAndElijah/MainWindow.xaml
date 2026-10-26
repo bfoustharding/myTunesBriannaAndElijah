@@ -22,7 +22,6 @@
     <Window.CommandBindings>
         <CommandBinding Command="MediaCommands.Play" Executed="playCommand_Executed" CanExecute="playCommand_CanExecute" />
         <CommandBinding Command="MediaCommands.Stop" Executed="stopCommand_Executed" CanExecute="stopCommand_CanExecute" />
-        <!--Clude:how to make a command binding for a remove command-->
         <CommandBinding Command="{x:Static local:MainWindow.RemoveCommand}"
                 Executed="removeCommand_Executed"
                 CanExecute="removeCommand_CanExecute"/>
@@ -38,7 +37,6 @@
             <ColumnDefinition Width="300*"/>
         </Grid.ColumnDefinitions>
 
-        <!--Claude: how do I use images for wpf toolbar buttons instead of text content-->
         <ToolBar Grid.Row="0" Grid.ColumnSpan="2">
             <Button x:Name="addSongButton" ToolTip="Add song" Click="addSongButton_Click" >
                 <Image Source="/Images/plusSymbol.jpg" Width="24" Height="24"/>
@@ -55,7 +53,6 @@
             <TextBox x:Name="searchTextBox" Width="250" ToolTip="Search Songs" TextChanged="searchTextBox_TextChanged"/>
         </ToolBar>
 
-        <!--Claude: how do I add an event handler for when the selected item in my listbox is changed-->
         <ListBox x:Name="playlistListBox" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="1" 
                  SelectionChanged="playlistListBox_SelectionChanged" ContextMenuOpening="playlistListBox_ContextMenuOpening">
             <ListBox.ContextMenu>
@@ -76,7 +73,7 @@
         </ListBox>
 
         <DataGrid x:Name="songsDataGrid" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True" 
-                  PreviewMouseMove="songsDataGrid_PreviewMouseMove">
+                  PreviewMouseMove="songsDataGrid_PreviewMouseMove" SelectionMode="Single">
             <!--Claude helped write the context menu-->
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
@@ -86,7 +83,6 @@
                         <Setter.Value>
                             <ContextMenu>
                                 <MenuItem Header="Play" Command="MediaCommands.Play" />
-                                <!--Clude:how to make a command binding for a remove command-->
                                 <MenuItem Header="Remove" Command="{x:Static local:MainWindow.RemoveCommand}" />
                             </ContextMenu>
                         </Setter.Value>
@@ -94,7 +90,6 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <!--Claude: how can I custom name the columns of my DataGrid-->
                 <DataGridTextColumn Header="Title"  Binding="{Binding title}"/>
                 <DataGridTextColumn Header="Artist" Binding="{Binding artist}"/>
                 <DataGridTextColumn Header="Album"  Binding="{Binding album}"/>
