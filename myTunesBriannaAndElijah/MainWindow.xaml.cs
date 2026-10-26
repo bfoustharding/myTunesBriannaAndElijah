@@ -209,61 +209,49 @@ namespace myTunesBriannaAndElijah
             MessageBox.Show("Could not play the song: " + e.ErrorException.Message, "myTunes", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        // If the mouse is pressed and a song is selected, start a drag & drop copy operation with the selected song's data
         private void songsDataGrid_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            // If we aren't pressing down the mouse, or if we don't have a song selected, then we're not actually doing a drag & drop
             if (e.LeftButton != MouseButtonState.Pressed || songsDataGrid.SelectedItem == null) 
                 return;
+            
+            DataObject songData = new DataObject("song", songsDataGrid.SelectedItem);
 
-            // Gets the data of the currently selected song (the one we're dragging)
-            DataObject data = new DataObject("song", songsDataGrid.SelectedItem);
-
-            // Start a drag & drop operation with our current songsDataGrid, our selected song's data, and with the intent to copy (not move)
-            DragDrop.DoDragDrop(songsDataGrid, data, DragDropEffects.Copy);
+            DragDrop.DoDragDrop(songsDataGrid, songData, DragDropEffects.Copy);
         }
 
+        // Add the selected song to the selected playlist by song ID and playlist name
         private void playlistItem_Drop(object sender, DragEventArgs e)
         {
-            // Get the whole row of data associated with our song
-            DataRowView songRow = (DataRowView)e.Data.GetData("song");
+            int songId = Convert.ToInt32(((DataRowView)e.Data.GetData("song"))["id"]);
 
-            // Get the song id out of the  song row (we need to use Convert because songRow["id"] is a string originally
-            int songId = Convert.ToInt32(songRow["id"]);
-
-            // Get the name of the playlist we dropped on
             string playlist = (string)((ListBoxItem)sender).Content;
 
-            // Add the song to the playlist
             musicRepo.AddSongToPlaylist(songId, playlist);
         }
 
+        // Check to make sure we actually have a snog selected
         private void removeCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // We can only try to remove a song if we have a song selected to remove
             e.CanExecute = songsDataGrid.SelectedItem is DataRowView;
 
         }
 
+        // If we are on the All Music playlist, check to make sure the user's sure, then call DeleteSong to remove the song from
+        // all playlists. Otherwise, call RemoveSongFromPlaylist to just remove this song occurrence from the playlist
         private void removeCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Pull the data out of the selected song 
             DataRowView songRow = (DataRowView)songsDataGrid.SelectedItem;
-
-            // Get the song id of the song row
             int songId = Convert.ToInt32(songRow["id"]);
-
-            // Get the name of the playlist we're in
             string playlist = (string)playlistListBox.SelectedItem;
 
             if (playlist == "All Music")
             {
-                // If we're on the All Music playlist, show dialog to check to make sure the user knows what they're doing
                 MessageBoxResult answer = MessageBox.Show("Remove from all playlists?", "Remove", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                 if (answer == MessageBoxResult.No)
                     return;
 
-                // Delete the song permanently
                 musicRepo.DeleteSong(songId);
             }
             else
@@ -271,7 +259,6 @@ namespace myTunesBriannaAndElijah
                 // Take the position of the song (whether it's 1st, 2nd, etc)
                 int position = Convert.ToInt32(songRow["position"]);
 
-                // Remove the song from the playlist
                 musicRepo.RemoveSongFromPlaylist(position, songId, playlist);
             }
         }
