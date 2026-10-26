@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myTunesBriannaAndElijah"
         mc:Ignorable="d"
-        Title="myTunes" Height="450" Width="973" Icon="/musicNote.jpg">
+        Title="myTunes" Height="450" Width="973" Icon="/musicNote.jpg"
+        Closing="Window_Closing">
 
     <Window.CommandBindings>
         <CommandBinding Command="MediaCommands.Play" Executed="playCommand_Executed" CanExecute="playCommand_CanExecute" />

@@ -237,7 +237,6 @@ namespace myTunesBriannaAndElijah
             musicRepo.AddSongToPlaylist(songId, playlist);
         }
 
-
         private void removeCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             // We can only try to remove a song if we have a song selected to remove
@@ -275,6 +274,12 @@ namespace myTunesBriannaAndElijah
                 // Remove the song from the playlist
                 musicRepo.RemoveSongFromPlaylist(position, songId, playlist);
             }
+        }
+
+        // When the window closes, save any changes to playlists
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            musicRepo.Save();
         }
     }
 }
